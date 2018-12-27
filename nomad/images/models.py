@@ -16,7 +16,10 @@ class Image(TimeStampeModel):
     file = models.ImageField()
     location = models.CharField(max_length=140)
     caption = models.TextField()
-    creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT)
+    creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT,null=True)
+    
+    
+
     
     def __str__(self):
         return '{}-{}'.format(self.location,self.caption) #어드민페널에 어떻게 보일지를 결정 이경우에는 장소-캡션  형택으로 표시
@@ -25,7 +28,7 @@ class Image(TimeStampeModel):
 class Comment(TimeStampeModel):
     message = models.TextField()
     creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT)
-    image = models.ForeignKey(Image,on_delete=models.PROTECT)
+    image = models.ForeignKey(Image,on_delete=models.PROTECT,related_name='comments')
     
     def __str__(self):
         return self.message
@@ -36,7 +39,7 @@ class Comment(TimeStampeModel):
 
 class Like(TimeStampeModel):
     creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT)
-    image = models.ForeignKey(Image, on_delete=models.PROTECT)
+    image = models.ForeignKey(Image, on_delete=models.PROTECT,related_name='likes')
 
     def __str__(self):
         return '{}-{}'.format(self.creator.username , self.image.caption)
