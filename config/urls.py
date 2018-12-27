@@ -19,6 +19,10 @@ urlpatterns = [
         "users/",
         include("nomad.users.urls", namespace="users"),
     ),
+    path(
+        "images/",
+        include("nomad.images.urls", namespace="images"),
+    ),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(

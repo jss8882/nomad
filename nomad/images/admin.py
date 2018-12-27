@@ -14,6 +14,7 @@ class ImageAdmin(admin.ModelAdmin):
         'location',
     )
     
+    #필터기능이생김
     list_filter = (
         'location',
         'creator'
