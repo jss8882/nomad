@@ -16,13 +16,14 @@ class Image(TimeStampeModel):
     file = models.ImageField()
     location = models.CharField(max_length=140)
     caption = models.TextField()
-    creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT,null=True)
-    
-    
+    creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT,null=True,related_name='images')
 
-    
     def __str__(self):
         return '{}-{}'.format(self.location,self.caption) #어드민페널에 어떻게 보일지를 결정 이경우에는 장소-캡션  형택으로 표시
+    
+    #DB에서 얻은 리스트를 생성된 날짜로 정렬
+    class Meta:
+        ordering = ['-created_at']
 
 #유저의 경우와 달리, 이전에 생성된 데이터가 없기떄문에 디폴트값 (null) 지정할 필요가 없음.
 class Comment(TimeStampeModel):

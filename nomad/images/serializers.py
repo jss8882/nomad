@@ -16,8 +16,8 @@ class LikeSerializer(serializers.ModelSerializer):
 
 class ImageSerializer(serializers.ModelSerializer):
 
-    comment_set = CommentSerializer(many=True)
-    like_set = LikeSerializer(many=True)
+    comments = CommentSerializer(many=True)
+    likes = LikeSerializer(many=True)
 
     class Meta:
         model =  models.Image
