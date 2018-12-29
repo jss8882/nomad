@@ -37,6 +37,10 @@ class Feed(APIView):
 def get_key(image):
     return image.created_at
 
+class LikeImage(APIView):
+    def get(self, request,image_id,format=None):
+        print(image_id)
+        return (Response(status=200))
 # class ListAllImages(APIView):
 
 #     def get(self, request, format='None'):

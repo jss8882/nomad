@@ -10,6 +10,12 @@ urlpatterns = [
         view = views.Feed.as_view(),
         name = 'all image'
     ),
+    path(
+        "<int:image_id>/like/",
+        view = views.LikeImage.as_view(),
+        name = "like_image"
+        
+    )
     
     # test codes
     

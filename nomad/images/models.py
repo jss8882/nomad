@@ -17,6 +17,12 @@ class Image(TimeStampeModel):
     location = models.CharField(max_length=140)
     caption = models.TextField()
     creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT,null=True,related_name='images')
+    
+    #좋아요의 객수를 세주는 함수
+    @property
+    def like_count(self):
+        return self.likes.all().count()
+
 
     def __str__(self):
         return '{}-{}'.format(self.location,self.caption) #어드민페널에 어떻게 보일지를 결정 이경우에는 장소-캡션  형택으로 표시

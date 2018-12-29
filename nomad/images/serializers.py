@@ -1,11 +1,31 @@
 from rest_framework import serializers
 from . import models
+from nomad.users import models as user_models
+
+
+
+class FeedUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = user_models.User
+        fields = (
+            'username',
+            'profile_image'
+        )
+
 
 class CommentSerializer(serializers.ModelSerializer):
 #    image = ImageSerializer()
+    creator = FeedUserSerializer()
+   
     class Meta:
         model = models.Comment
-        fields = "__all__"
+        fields = (
+            'id',
+            'message',
+            'creator',
+        
+        )
         
 class LikeSerializer(serializers.ModelSerializer):
 
@@ -14,10 +34,18 @@ class LikeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+
 class ImageSerializer(serializers.ModelSerializer):
 
     comments = CommentSerializer(many=True)
-    likes = LikeSerializer(many=True)
+    
+    #count_likes라는 property를 이미지 모델에 생성했기 때문에 시리얼라이저가 불필요
+#    likes = LikeSerializer(many=True)
+    
+    #위에서 생성한 FeedUserSerializer를 이용하여 생성자의 이름과 프로필사지을 보여줌 
+    #생성자는 한명이므로 many옵션은 필요없음.
+    creator = FeedUserSerializer()
+    
 
     class Meta:
         model =  models.Image
@@ -27,7 +55,8 @@ class ImageSerializer(serializers.ModelSerializer):
             'location',
             'caption',
             'comments',
-            'likes'
+            'like_count',
+            'creator'
         )
 #        fields = "__all__"
 
