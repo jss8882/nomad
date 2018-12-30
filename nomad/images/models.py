@@ -34,7 +34,7 @@ class Image(TimeStampeModel):
 #유저의 경우와 달리, 이전에 생성된 데이터가 없기떄문에 디폴트값 (null) 지정할 필요가 없음.
 class Comment(TimeStampeModel):
     message = models.TextField()
-    creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT)
+    creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT,null=True,blank=True)
     image = models.ForeignKey(Image,on_delete=models.PROTECT,related_name='comments')
     
     def __str__(self):
