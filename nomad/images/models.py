@@ -23,6 +23,10 @@ class Image(TimeStampeModel):
     def like_count(self):
         return self.likes.all().count()
 
+    @property
+    def comment_count(self):
+        return self.comments.all().count()
+
 
     def __str__(self):
         return '{}-{}'.format(self.location,self.caption) #어드민페널에 어떻게 보일지를 결정 이경우에는 장소-캡션  형택으로 표시

@@ -29,8 +29,22 @@ class User(AbstractUser):
     followers = models.ManyToManyField('self')
     following = models.ManyToManyField('self')
     
+    #포스트 숫자, 팔로워 숫자등을 얻기위한 model property생성
+    @property
+    def post_count(self):
+        #images를 사용할수 있는 이유는 image가 가지고 있는 creator에 대해 related name으로 묶여있기 때문
+        #in images's models.py
+        #creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT,null=True,related_name='images')
+        return self.images.all().count()
     
+    @property
+    def followers_count(self):
+        return self.followers.all().count()
+    
+    @property
+    def following_count(self):
+        return self.following.all().count()
      
-    def get_absolute_url(self):
-        return reverse("users:detail", kwargs={"username": self.username})
+    # def get_absolute_url(self):
+    #     return reverse("users:detail", kwargs={"username": self.username})
 

@@ -1,3 +1,11 @@
 {
-    "python.pythonPath": "/Users/sangsu/.local/share/virtualenvs/nomad-XS_9K4Gg/bin/python"
+    "python.pythonPath": "/Users/sangsu/.local/share/virtualenvs/nomad-XS_9K4Gg/bin/python",
+    "vim.insertModeKeyBindings" : [
+        {
+            "before":["q","q"],
+            "after" : ["<Esc>"]
+        }
+    ]
+
+    
 }
