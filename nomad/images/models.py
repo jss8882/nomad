@@ -1,6 +1,9 @@
 from django.db import models
 #그냥 models로 불러올시 기존의 models과 이름이 같아서 충돌이 발생 이를 막기위해 as 를 사용하여 닉네임 지정
+from taggit.managers import TaggableManager
 from nomad.users import models as user_models
+
+
 
 # Create your models here.
 
@@ -17,6 +20,9 @@ class Image(TimeStampeModel):
     location = models.CharField(max_length=140)
     caption = models.TextField()
     creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT,null=True,related_name='images')
+
+    tags = TaggableManager()
+
     
     #좋아요의 객수를 세주는 함수
     @property

@@ -4,7 +4,7 @@ from nomad.images import serializers as image_serializers
 
 
 
-class ListUserSerializer(serializers.ModelSerializer):
+class ExploreUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
         fields = (
@@ -16,7 +16,7 @@ class ListUserSerializer(serializers.ModelSerializer):
 
 class UserProfileSerializer(serializers.ModelSerializer):
 
-    images = image_serializers.UserProfileImageSerializer(many=True)
+    images = image_serializers.CountImageSerializer(many=True)
 
     class Meta:
         model = models.User

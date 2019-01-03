@@ -128,7 +128,25 @@ class Comment(APIView):
             return Response(status = status.HTTP_404_NOT_FOUND)
 
 
-    
+class Search(APIView):
+    def get(self,request,format=None):
+        hashtags = request.query_params.get('hashtags',None)
+
+        if hashtags is not None:
+            hashtags = hashtags.split(",")
+
+            #deep relationship를 검색하는 방법
+            #in의 의미는 그 안에있는 각각을 다 검색??
+            images = models.Image.objects.filter(tags__name__in=hashtags).distinct()
+
+            serializer = serializers.CountImageSerializer(images,many=True)
+
+            return Response(data=serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+        print(hashtags)
 
 # class ListAllImages(APIView):
 

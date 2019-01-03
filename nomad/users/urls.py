@@ -15,7 +15,10 @@ urlpatterns = [
     path("<int:user_id>/unfollow/",view=views.UnFollowUser.as_view(), name="unfollow_user"),
     path("<str:username>/",view=views.UserProfile.as_view(), name="user_profile"),
     path("<str:username>/followers",view=views.UserFollowers.as_view(), name="user_followers"),
+    path("<str:username>/following",view=views.UserFollowing.as_view(), name="user_following"),
     
+    #function based view로 동작하는 followings 
+    # path("<str:username>/followingFBV",view=views.UserFollowingFBV(), name="user_following"),
     
     # path("~redirect/", view=user_redirect_view, name="redirect"),
     # path("~update/", view=user_update_view, name="update"),
