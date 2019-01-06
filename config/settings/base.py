@@ -72,9 +72,10 @@ THIRD_PARTY_APPS = [
 
 ]
 LOCAL_APPS = [
-    'nomad.users.apps.UsersAppConfig',
+    'nomad.users.apps.UsersAppConfig', 
     # Your stuff: custom apps go here
     'nomad.images.apps.ImagesConfig',
+    'nomad.notifications.apps.NotificationsConfig', #Notifications App
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

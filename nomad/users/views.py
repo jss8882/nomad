@@ -81,6 +81,15 @@ class UserFollowing(APIView):
         return Response(data=serializer.data,status=status.HTTP_200_OK)
         
 
+class Search(APIView):
+    def get(self, request, format=None):
+        username = request.query_params.get('username',None)
+        #여기서 정확한 매칭 검색을 원하지 않음 (대소문자 구분 하지 않음)
+        if username is not None:        
+            # users = models.User.objects.filter(username__icontains=username)
+            users = models.User.objects.filter(username__istartswith=username)
+            serializer = serializers.ListUserSerializer(users,many=True)
+            return Response(data = serializer.data, status=status.HTTP_200_OK)
 
 # def UserFollowingFBV(request, username):
 #     if request.method == 'GET':
