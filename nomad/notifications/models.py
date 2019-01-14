@@ -18,6 +18,14 @@ class Notification(image_models.TimeStampeModel):
     #null = True blank = True를 설정하면 기본값으 아님.
     image = models.ForeignKey(image_models.Image, on_delete=models.PROTECT,null=True, blank = True)
     # creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT,null=True,related_name='images')
+    comment = models.TextField(null=True,blank=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return 'From : {} - TO : {}'.format(self.creator,self.to)
+
 
 
 

@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from . import models
 from . import serializers
+from nomad.notifications import views as notifications_view
 
 # Create your views here.
 
@@ -58,7 +59,6 @@ class LikeImage(APIView):
                 image =  found_image
             )
 #            preexisting_like.delete()
-            print("hello")
             return Response(status=status.HTTP_204_NO_CONTENT)
             
         except models.Like.DoesNotExist:
@@ -67,6 +67,9 @@ class LikeImage(APIView):
                 image = found_image,
             )
             new_like.save()
+
+            notifications_view.create_notification(user,found_image.creator,'like',found_image)
+
             return Response(status=status.HTTP_201_CREATED)
 
 class UnLikeImage(APIView):
@@ -107,8 +110,10 @@ class CommentOnImage(APIView):
         serializer = serializers.CommentSerializer(data=request.data)
         
         if serializer.is_valid():
-            print("i'm valid")
             serializer.save(creator = user, image = found_image)
+
+            notifications_view.create_notification(user,found_image.creator,'comment',found_image,serializer.data['message'])
+
             return Response(data=serializer.data, status=status.HTTP_201_CREATED)
         
         else:
