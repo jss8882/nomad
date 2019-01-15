@@ -22,10 +22,16 @@ class Feed(APIView):
             for image in user_images:
                 image_list.append(image)
         
-        print(image_list)
+        my_images = user.images.all()[:2]
+
+        for image in my_images:
+            image_list.append(image)
         
+        print(image_list)
+
         #key함수의 return값을 기준으로 정렬함
         #key값을 lambda image : image.created_at 으로 사용해도 무관
+
         sorted_list = sorted(image_list,key=get_key,reverse=True)
         print(sorted_list)
         
@@ -150,8 +156,48 @@ class Search(APIView):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class MorderateComments(APIView):
+    def delete(self, request, image_id, comment_id ,format=None):
+        user = request.user
 
-        print(hashtags)
+        # try:
+        #     image = models.Image.objects.get(id = image_id , creator = user )
+        # except models.Image.DoesNotExis:
+        #     return Response(status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            #다음과 같은 코드를 이용해서 앞에 주석 처리한 과정을 생략할수 있음
+            #삭제하고자 하는 댓글의 ID가 URL의 ID와 동일하고, image id와 유저에 의해 생성된 이미지인지를 체크한다.
+            comment_to_delete = models.Comment.objects.get(id = comment_id, image__id = image_id, image__creator = user)
+            comment_to_delete.delete()
+        except models.Comment.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class AllImages(APIView):
+    def get(self, request, format = None):
+        images = models.Image.objects.all()
+        serializer = serializers.ImageSerializer(images,many=True)
+        return Response(data=serializer.data,status=status.HTTP_200_OK)
+
+class ImageDetail(APIView):
+    def get(self, request, image_id ,format = None):
+        try:
+            image = models.Image.objects.get(id = image_id)
+            serializer = serializers.ImageSerializer(image)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+        except model.image.DoesNotExist:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        
+
+    
+
+
+
+
+
 
 # class ListAllImages(APIView):
 

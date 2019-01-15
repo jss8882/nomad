@@ -21,7 +21,8 @@ class Image(TimeStampeModel):
     caption = models.TextField()
     creator = models.ForeignKey(user_models.User,on_delete=models.PROTECT,null=True,related_name='images')
 
-    tags = TaggableManager()
+    #blank=True 옵션을 통해서 태그가 필수 항목이 아니도록 만듬
+    tags = TaggableManager(blank=True)
 
     
     #좋아요의 객수를 세주는 함수

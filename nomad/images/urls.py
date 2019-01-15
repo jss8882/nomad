@@ -8,7 +8,7 @@ urlpatterns = [
         #all로 이동
         "feed/",
         view = views.Feed.as_view(),
-        name = 'all image'
+        name = 'most recent five image'
     ),
     path(
         "<int:image_id>/like/",
@@ -21,9 +21,9 @@ urlpatterns = [
         name = "unlike_image"
     ),
     path(
-        "comments/<int:image_id>/",
-        view = views.CommentOnImage.as_view(),
-        name = "comment_image"
+        "<int:image_id>/comments/<int:comment_id>",
+        view = views.MorderateComments.as_view(),
+        name = "morderate_comment"
     ),
     path(
         "<int:comment_id>/comments/",
@@ -31,9 +31,23 @@ urlpatterns = [
         name = "comment"
     ),
     path(
+        "<int:image_id>/",
+        view = views.ImageDetail.as_view(),
+        name = "photo_detail"
+    ),
+    path(
+        "comments/<int:image_id>/",
+        view = views.CommentOnImage.as_view(),
+        name = "comment_image"
+    ),
+    path(
         "search/",
         view = views.Search.as_view(),
         name = "search"
     ),
-    
+    path(
+        "",
+        view = views.AllImages.as_view(),
+        name = "all images"
+    ),
 ]
