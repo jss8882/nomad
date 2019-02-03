@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from . import models
+from taggit_serializer.serializers import (TagListSerializerField, TaggitSerializer)
 from nomad.users import models as user_models
 
 
@@ -54,7 +55,7 @@ class LikeSerializer(serializers.ModelSerializer):
 
 
 
-class ImageSerializer(serializers.ModelSerializer):
+class ImageSerializer(TaggitSerializer,serializers.ModelSerializer):
 
     comments = CommentSerializer(many=True)
     
@@ -64,6 +65,8 @@ class ImageSerializer(serializers.ModelSerializer):
     #위에서 생성한 FeedUserSerializer를 이용하여 생성자의 이름과 프로필사지을 보여줌 
     #생성자는 한명이므로 many옵션은 필요없음.
     creator = FeedUserSerializer()
+
+    tags = TagListSerializerField()
     
 
     class Meta:
@@ -76,9 +79,19 @@ class ImageSerializer(serializers.ModelSerializer):
             'comments',
             'like_count',
             'creator',
-            'created_at'
+            'created_at',
+            'tags',
 
 
         )
 #        fields = "__all__"
+
+class InputImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Image
+        fields = (
+            'file',
+            'location',
+            'caption'
+        )
 

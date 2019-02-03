@@ -11,12 +11,12 @@ urlpatterns = [
         name = 'most recent five image'
     ),
     path(
-        "<int:image_id>/like/",
+        "<int:image_id>/likes/",
         view = views.LikeImage.as_view(),
         name = "like_image"
     ),
     path(
-        "<int:image_id>/unlike/",
+        "<int:image_id>/unlikes/",
         view = views.UnLikeImage.as_view(),
         name = "unlike_image"
     ),
@@ -47,7 +47,7 @@ urlpatterns = [
     ),
     path(
         "",
-        view = views.AllImages.as_view(),
+        view = views.Images.as_view(),
         name = "all images"
     ),
 ]

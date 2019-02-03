@@ -5,6 +5,9 @@ from rest_framework import status
 from . import models
 from . import serializers
 from nomad.notifications import views as notifications_view
+from nomad.users import models as users_models
+from nomad.users import serializers as users_serializers
+
 
 # Create your views here.
 
@@ -46,9 +49,19 @@ def get_key(image):
     return image.created_at
 
 class LikeImage(APIView):
+    def get(self, request, image_id, format=None):
+        try:
+            likes = models.Like.objects.filter(image__id = image_id)
+            like_creators_ids = likes.values('creator_id')
+            #filter(id__in)의 의미는 배열 안에 있는 유저 id를 검색하겠다는 의미
+            users = users_models.User.objects.filter(id__in = like_creators_ids)
+            serializer = users_serializers.ListUserSerializer(users, many=True)
+            return Response(data=serializer.data,status=status.HTTP_200_OK)
+        except models.LikeDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
-    def get(self, request,image_id,format=None):
-    
+
+    def post(self, request,image_id,format=None):
         try:
             found_image = models.Image.objects.get(id=image_id)
         except models.Image.DoesNotExist:
@@ -175,47 +188,68 @@ class MorderateComments(APIView):
         
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class AllImages(APIView):
+class Images(APIView):
     def get(self, request, format = None):
         images = models.Image.objects.all()
         serializer = serializers.ImageSerializer(images,many=True)
         return Response(data=serializer.data,status=status.HTTP_200_OK)
+    
+    def post(self, request, format = None):
+
+        user = request.user
+
+        serializer = serializers.InputImageSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save(creator=user)
+            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class ImageDetail(APIView):
+    def find_own_image(self, image_id , user):
+        try:
+            image = models.Image.objects.get(id = image_id, creator =user  )
+            return image
+        except models.Image.DoesNotExist:
+            return None
+
     def get(self, request, image_id ,format = None):
         try:
             image = models.Image.objects.get(id = image_id)
             serializer = serializers.ImageSerializer(image)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-        except model.image.DoesNotExist:
+        except models.image.DoesNotExist:
             return Response(status=status.HTTP_204_NO_CONTENT)
-        
-
     
+    def put(self,request,image_id,format = None):
+        user = request.user
+        image = self.find_own_image(image_id, user)
+        if image is not None:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        #시리어 라이저는 2가지의 인자가 필요함 1) 업데이트 하려는 오브젝트 2)업데이터 하려는 데이터
+        serializer = serializers.InputImageSerializer(image, data=request.data,partial=True)
 
+        if serializer.is_valid():
+            serializer.save(creator=user)
+            return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self,request,image_id,format = None):
 
+        user = request.user
+        image = self.find_own_image(image_id , user)
 
+        if image is None:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        image.delete()
 
-
-
-# class ListAllImages(APIView):
-
-#     def get(self, request, format='None'):
-#         all_images = models.Image.objects.all()
-#         serializer = serializers.ImageSerializer(all_images, many=True)
-#         return Response(data=serializer.data)
+        return Response(status=status.HTTP_204_NO_CONTENT)
         
-        
-# class ListAllComments(APIView):
-#     def get(self, request, format = 'None'):
-#         all_comments = models.Comment.objects.all()
-#         serializer = serializers.CommentSerializer(all_comments,many=True)
-#         return Response(data=serializer.data)
-        
-# class ListAllLikes(APIView):
-#     def get(self, request, format = 'None'):
-#         all_likes = models.Like.objects.all()
-#         print(request.user.website)
-#         serializer = serializers.LikeSerializer(all_likes,many=True)
-#         return Response(data=serializer.data)
+
+
+
+
