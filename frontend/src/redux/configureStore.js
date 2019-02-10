@@ -9,7 +9,7 @@ import { createBrowserHistory } from 'history'
 //import createHistory from "history/createBrowserHistory";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { i18nState } from "redux-i18n";
-import users from 'redux/modules/users'
+import user from 'redux/modules/user'
 import Reactotron from "ReactotronConfig"
 
 const history = createBrowserHistory()
@@ -38,7 +38,7 @@ if(env==="development"){
 
 //여기에서 여러 리듀서들을 합칠것임
 const reducer = combineReducers({
-    users,
+    user,
     router: connectRouter(history),
     //i18n을 위한 리듀서를 추가
     i18nState,

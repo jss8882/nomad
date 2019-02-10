@@ -1,0 +1,53 @@
+@import "config/_variable.scss";
+
+.auth{
+    margin: 0 auto;
+    width: 100%;
+    max-width: $max-page-width;
+    min-height: 100%;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .column{
+        width: 40%;
+
+
+        img{
+            width:100%;
+        }
+        &:last-child {
+//            border: 1px solid black;
+            width: 35%;
+            margin-left: 35px;
+          }
+
+        .whiteBox{
+            @include boxBorder(no);
+            padding: 15px;
+        }
+
+        .appBox{
+            display: flex;
+            flex-direction: column;
+            margin-top: 35px;
+            align-items: center;
+
+            .appStore{
+                margin-top: 25px;
+
+                img{
+                    height: 40px;
+                    width: auto;
+                    &:last-child{
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+
+    }
+
+
+}

@@ -1,0 +1,104 @@
+@import "config/_variable.scss";
+
+.formComponent {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    
+    .form{
+        display: flex;
+        flex-direction: column;
+
+        input[type="submit"]{
+            margin-top:10px;
+        }
+
+        .textInput{
+            border: 1px solid #efefef;
+            border-radius: 3px;
+            background-color: $bg-color;
+            margin-bottom: 5px;
+            font-size: $normal-font-size;
+            padding: 9px 0 7px 8px;
+            font-weight: 400;
+            &:focus{
+                outline: none;
+                border: 1px solid #b2b2b2;
+            }
+        }
+
+        }
+        .button{
+            @include blueButton();
+            svg{
+                margin-right: 10px;
+            }
+            // -webkit-appearance: none;
+            // border-radius: 3px;
+            // background-color: $light-blue;
+            // color: white;
+            // font-weight: 600;
+            // border: 0;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
+            // font-size: $normal-font-size;
+            // line-height: 26px;
+            // cursor: pointer;
+            // &:focus,
+            // &:active {
+            //   outline: none;
+            // }
+            // &:active {
+            //   opacity: 0.9;
+            // }
+    }
+    .divider{
+        text-transform: uppercase;
+        color: $dark-grey;
+        font-weight: 600;
+        margin: 20px 0;
+        // margin-bottom: 20px;
+        position:relative;
+        &::before{
+            content:"";
+            width:42%;
+            position: absolute;
+            background-color: $dark-grey;
+            height: 1px;
+            left:0;
+            top:9px;
+            opacity: 0.8;
+        }
+        &::after{
+            content:"";
+            width:42%;
+            position: absolute;
+            background-color: $dark-grey;
+            height: 1px;
+            right:0;
+            top:9px;
+            opacity: 0.7;
+        }
+    }
+
+    .signupHeader{
+        font-size:17px;
+        color:$dark-grey;
+        font-weight:600;
+        margin-bottom: 20px;
+    }
+    
+    .terms{
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 20px;
+        line-height: 20px;
+        color: $dark-grey;
+        span{
+            font-weight: 550;
+            cursor: pointer;
+        }
+    }
+}

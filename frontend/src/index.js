@@ -8,8 +8,6 @@ import App from "components/App"
 import "ReactotronConfig";
 import { translations } from "translations";
 import I18n from "redux-i18n";
-//reset css
-import 'reset-css';
 
 
 console.log(store.getState());

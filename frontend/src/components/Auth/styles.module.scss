@@ -1,0 +1,57 @@
+@import "config/_variable.scss";
+
+.auth {
+  max-width: $max-page-width;
+  margin: 0 auto;
+  display: flex;
+  min-height: 100%;
+  margin-top: 30px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+
+  .column {
+    width: 40%;
+
+    img{
+        width:100%;
+    }
+
+    &:last-child {
+      width: 35%;
+      margin-left: 35px;
+    }
+    .appBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 35px;
+
+      .appstores {
+        margin-top: 25px;
+
+        img {
+          height: 40px;
+          width: auto;
+          &:first-child {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+    .whiteBox {
+      text-align: center;
+      padding: 15px;
+      margin-bottom: 10px;
+      @include boxBorder(no);
+      .changeLink {
+        color: $light-blue;
+        cursor: pointer;
+      }
+      p {
+        // margin: 15px;
+      }
+    }
+  }
+}
