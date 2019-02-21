@@ -1,0 +1,84 @@
+msgid ""
+msgstr ""
+"Language: kr"
+
+#: src/components/AuthForms/index.js
+msgid "Username"
+msgstr "성명"
+
+#: src/components/AuthForms/index.js
+msgid "Password"
+msgstr "비밀번호"
+
+#: src/components/AuthForms/index.js
+msgid "Log in"
+msgstr "로그인"
+
+#: src/components/AuthForms/index.js
+msgid "or"
+msgstr "또는"
+
+#: src/components/AuthForms/index.js
+msgid "Log in with Facebook"
+msgstr "Facebook으로 로그인"
+
+#: src/components/AuthForms/index.js
+msgid "Forgot password?"
+msgstr "비밀번호를 잊으셨습니까?"
+
+#: src/components/AuthForms/index.js
+msgid "Sign up to see photos and videos from your friends"
+msgstr "회원가입을해서 친구의 사진과 영상을 감상하세요"
+
+#: src/components/AuthForms/index.js
+msgid "Email"
+msgstr "이메일"
+
+#: src/components/AuthForms/index.js
+msgid "Full Name"
+msgstr "이름"
+
+#: src/components/AuthForms/index.js
+msgid "Sign Up"
+msgstr "회원가입"
+
+#: src/components/AuthForms/index.js
+msgid "By signing up , you agree to our <span>Terms & Privacy Policy</span>"
+msgstr ""
+
+#: src/components/Footer/index.js
+msgid "About Us"
+msgstr "Instagram정보"
+
+#: src/components/Footer/index.js
+msgid "Support"
+msgstr "지원"
+
+#: src/components/Footer/index.js
+msgid "Blog"
+msgstr "블로그"
+
+#: src/components/Footer/index.js
+msgid "Press"
+msgstr "홍보자료"
+
+#: src/components/Footer/index.js
+msgid "Jobs"
+msgstr "채용"
+
+#: src/components/Footer/index.js
+msgid "Privacy"
+msgstr "개인정보보호정책"
+
+#: src/components/Footer/index.js
+msgid "Terms"
+msgstr "약관"
+
+#: src/components/Footer/index.js
+msgid "Directory"
+msgstr "디렉토리"
+
+#: src/components/Footer/index.js
+msgid "Language"
+msgstr "언어"
+

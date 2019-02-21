@@ -34,6 +34,10 @@
             svg{
                 margin-right: 10px;
             }
+            i{
+                margin-right: 10px;
+                font-size: 18px;
+            }
             // -webkit-appearance: none;
             // border-radius: 3px;
             // background-color: $light-blue;
@@ -100,5 +104,28 @@
             font-weight: 550;
             cursor: pointer;
         }
+    }
+
+    .facebookLink{
+        color: #375185;
+        margin-bottom: 10px;
+        font-size: $normal-font-size;
+        border: 0;
+        background-color: transparent;
+        cursor: pointer;
+        i {
+            margin-right:10px;
+        }
+        &:focus{
+            outline: none;
+        }
+        &:active {
+          outline: none;
+        }
+    }
+
+    .forgotLink{
+        font-size: $small-font-size;
+        color: $dark-blue
     }
 }

@@ -5,7 +5,7 @@ import Auth from "./presenter";
 class Container extends Component{
     // 기본 state
     state={
-        action:"signup"
+        action:"login"
     };
 
     render(){

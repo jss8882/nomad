@@ -10,7 +10,7 @@ import { createBrowserHistory } from 'history'
 import { composeWithDevTools } from "redux-devtools-extension";
 import { i18nState } from "redux-i18n";
 import user from 'redux/modules/user'
-import Reactotron from "ReactotronConfig"
+//import Reactotron from "ReactotronConfig"
 
 const history = createBrowserHistory()
 
@@ -50,9 +50,11 @@ let store;
 if(env==="development"){
     //reactotron를 위한 Store생성
     store = initialState =>
-        Reactotron.createStore(
-            reducer,
-            composeWithDevTools(applyMiddleware(...middleware)));
+    createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));
+    // store = initialState =>
+    //     Reactotron.createStore(
+    //         reducer,
+    //         composeWithDevTools(applyMiddleware(...middleware)));
 } else{
     //...middleware를 사용하면 배열을 풀수 있다.
     //ex) ([1,2,3,4])배열을 (1,2,3,4)로 풀어줌
