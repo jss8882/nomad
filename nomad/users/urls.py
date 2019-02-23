@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path , re_path
 from . import views
 
 # from nomad.users.views import (
@@ -21,8 +21,9 @@ urlpatterns = [
     path("<str:username>/followers/",view=views.UserFollowers.as_view(), name="user_followers"),
     path("<str:username>/following/",view=views.UserFollowing.as_view(), name="user_following"),
     path("<str:username>/password/",view=views.ChangePassword.as_view(), name="password"),
-    path("login/facebook/",view=views.FacebookLogin.as_view(),name='fb_login')
     
+    # path("login/facebook/",view=views.FacebookLogin.as_view(),name='fb_login'),
+    re_path('^login/facebook/$',views.FacebookLogin.as_view(),name='fb_login')
     #function based view로 동작하는 followings 
     # path("<str:username>/followingFBV",view=views.UserFollowingFBV(), name="user_following"),
     

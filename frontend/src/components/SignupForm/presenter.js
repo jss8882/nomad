@@ -34,8 +34,8 @@ export const SignupForm = (props, context) => (
         type="text"
         placeholder={context.t("Full Name")}
         onChange={props.handleInputChange}
-        value={props.fullnameValue}
-        name="fullname"
+        value={props.nameValue}
+        name="name"
 
       />
       <input
@@ -76,7 +76,7 @@ SignupForm.propType = {
   handleSubmit: PropTypes.func.isRequired,
   handleFacebookLogin: PropTypes.func.isRequired,
   emailValue: PropTypes.string.isRequired,
-  fullnameValue: PropTypes.string.isRequired,
+  nameValue: PropTypes.string.isRequired,
   usernameValue: PropTypes.string.isRequired,
   passwordValue: PropTypes.string.isRequired
   

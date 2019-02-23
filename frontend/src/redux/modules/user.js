@@ -25,7 +25,11 @@ function facebookLogin(access_token) {
       })
     })
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => {
+        if (json.token) {
+          dispatch(saveToken(json.token));
+        }
+      })
       .catch(err => console.log(err));
   };
 }
@@ -49,6 +53,32 @@ function usernameLogin(username, password) {
       })
       .catch(err => console.log(err));
   };
+}
+function createAccount(username,password,email,name){
+  return function(dispatch){
+    fetch("/rest-auth/registration/",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username,
+        password1: password,
+        password2: password,
+        email,
+        name
+      })
+    })
+      .then(response => response.json())
+      .then(json => {
+        if (json.token) {
+          dispatch(saveToken(json.token));
+        }
+      })
+      .catch(err => console.log(err));
+
+  }
+
 }
 
 //initial state
@@ -74,7 +104,10 @@ function reducer(state = initialState, action) {
 //reducer function
 function applySetToken(state, action) {
   const { token } = action;
-  console.log("hello")
+  // action이 가지고 있는 값은 다음과 같다
+  //{type: "SAVE_TOKEN", token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkI…6IiJ9.FI5uSdis2fcW26IuAs3ySJi2wNuPpK4CYXvR7lSr6eY"}
+  console.log(action);
+  console.log("hello");
   console.log(token);
   localStorage.setItem("jwt", token);
   return {
@@ -87,7 +120,8 @@ function applySetToken(state, action) {
 //exports
 const actionCreators = {
   facebookLogin,
-  usernameLogin
+  usernameLogin,
+  createAccount
 };
 export { actionCreators };
 
